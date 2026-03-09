@@ -1,5 +1,3 @@
--- This script syncs your existing authenticated users into the new public.users table!
--- Run this in your Supabase SQL Editor.
 
 INSERT INTO public.users (id, email, name, avatar_url, created_at)
 SELECT 

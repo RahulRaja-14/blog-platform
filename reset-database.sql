@@ -1,6 +1,3 @@
--- Run this in your Supabase SQL Editor.
--- WARNING: This will drop existing tables and recreate them properly to match the Next.js app exactly.
--- Since your app is new and you haven't been able to fetch data yet, this is the safest way to ensure a perfect setup!
 
 DROP TABLE IF EXISTS public.bookmarks CASCADE;
 DROP TABLE IF EXISTS public.comments CASCADE;

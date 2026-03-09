@@ -63,7 +63,7 @@ export function CommentSection({ blogId, user }: { blogId: string; user: any }) 
   async function handleDelete(commentId: string) {
     if (!user) return;
     if (!confirm('Are you sure you want to delete this comment?')) return;
-    
+
     const { error } = await supabase.from('comments').delete().match({ id: commentId });
 
     if (error) {
@@ -77,7 +77,7 @@ export function CommentSection({ blogId, user }: { blogId: string; user: any }) 
     <div className="space-y-12">
       <div className="flex items-center gap-3">
         <MessageSquare className="h-6 w-6 text-accent" />
-        <h2 className="text-3xl font-black text-slate-900">Conversations</h2>
+        <h2 className="text-3xl font-black text-accent">Conversations</h2>
       </div>
 
       {user ? (
@@ -88,16 +88,16 @@ export function CommentSection({ blogId, user }: { blogId: string; user: any }) 
             </div>
             <p className="font-bold text-sm">Join the discussion as {user.user_metadata.name || user.email.split('@')[0]}</p>
           </div>
-          <Textarea 
-            placeholder="What are your thoughts?" 
+          <Textarea
+            placeholder="What are your thoughts?"
             value={content}
             onChange={(e) => setContent(e.target.value)}
-            className="min-h-[120px] bg-white border-slate-200 shadow-none resize-none focus:ring-accent"
+            className="min-h-[120px] bg-white border-slate-200 shadow-none resize-none focus:ring-accent text-black"
           />
           <div className="flex justify-end">
-            <Button 
-              onClick={handleSubmit} 
-              disabled={!content.trim()} 
+            <Button
+              onClick={handleSubmit}
+              disabled={!content.trim()}
               className="gap-2 bg-accent text-accent-foreground hover:bg-accent/90 px-8"
             >
               <Send className="h-4 w-4" />
@@ -136,9 +136,9 @@ export function CommentSection({ blogId, user }: { blogId: string; user: any }) 
                     </span>
                   </div>
                   {user?.id === comment.user_id && (
-                    <Button 
-                      variant="ghost" 
-                      size="icon" 
+                    <Button
+                      variant="ghost"
+                      size="icon"
                       className="h-8 w-8 text-slate-300 hover:text-destructive hover:bg-destructive/5 opacity-0 group-hover:opacity-100 transition-opacity"
                       onClick={() => handleDelete(comment.id)}
                     >
