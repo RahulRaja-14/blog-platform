@@ -1,0 +1,64 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    /**
+     * PlatformStream Security Rules
+     *
+     * Core Philosophy: 
+     * This ruleset enforces a strict user-ownership model. 
+     * Private data is locked to owners, while public content is readable by all.
+     */
+
+    function isSignedIn() {
+      return request.auth != null;
+    }
+
+    function isOwner(userId) {
+      return isSignedIn() && request.auth.uid == userId;
+    }
+
+    function isExistingOwner(userId) {
+      return resource != null && isOwner(userId);
+    }
+
+    // --- Collection Rules ---
+
+    match /users/{userId} {
+      // Allow public GET for author profile visibility (name, bio)
+      allow get: if true; 
+      allow list: if false; 
+      allow create: if isOwner(userId) && request.resource.data.id == userId;
+      allow update: if isExistingOwner(userId) && request.resource.data.id == resource.data.id;
+      allow delete: if isExistingOwner(userId);
+
+      match /draft_blogs/{blogId} {
+        allow get, list: if isOwner(userId);
+        allow create: if isOwner(userId) && request.resource.data.userId == userId;
+        allow update: if isExistingOwner(userId) && request.resource.data.userId == resource.data.userId;
+        allow delete: if isExistingOwner(userId);
+      }
+    }
+
+    match /published_blogs/{blogId} {
+      allow get, list: if true;
+      allow create: if isSignedIn() && request.resource.data.userId == request.auth.uid;
+      allow update: if isExistingOwner(resource.data.userId) && request.resource.data.userId == resource.data.userId;
+      allow delete: if isExistingOwner(resource.data.userId);
+
+      match /likes/{likeId} {
+        allow get, list: if true;
+        allow create: if isSignedIn() && request.resource.data.userId == request.auth.uid;
+        allow update: if isExistingOwner(resource.data.userId) && request.resource.data.userId == resource.data.userId;
+        allow delete: if isExistingOwner(resource.data.userId);
+      }
+
+      match /comments/{commentId} {
+        allow get, list: if true;
+        allow create: if isSignedIn() && request.resource.data.userId == request.auth.uid;
+        allow update: if isExistingOwner(resource.data.userId) && request.resource.data.userId == resource.data.userId;
+        allow delete: if isExistingOwner(resource.data.userId);
+      }
+    }
+  }
+}

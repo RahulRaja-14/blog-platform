@@ -1,0 +1,16 @@
+{
+  "placeholderImages": [
+    {
+      "id": "blog-hero",
+      "description": "Professional blogging platform hero",
+      "imageUrl": "https://images.unsplash.com/photo-1703355685952-03ed19f70f51?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw1fHxtb2Rlcm4lMjB3b3Jrc3BhY2V8ZW58MHx8fHwxNzcyNDU1MDU1fDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "modern workspace"
+    },
+    {
+      "id": "avatar-1",
+      "description": "User avatar",
+      "imageUrl": "https://images.unsplash.com/photo-1676663111342-ca23e4efb425?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw3fHxwb3J0cmFpdCUyMHBlcnNvbnxlbnwwfHx8fDE3NzI1MTk0MDN8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "portrait person"
+    }
+  ]
+}
